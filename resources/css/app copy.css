@@ -47,7 +47,7 @@
 }
 
 .animate-float-slow {
-    animation: floatSlow 1s ease-in-out infinite;
+    animation: floatSlow 8s ease-in-out infinite;
 }
 
 @keyframes premiumFade {
