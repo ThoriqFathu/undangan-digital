@@ -1,418 +1,229 @@
 <style>
-    section.hero {
-        position: relative;
-        height: 100dvh;
-        overflow: hidden;
-        background: #745578;
+/* =========================
+SECTION BASE
+========================= */
+.sd-section {
+    position: relative;
+    padding: 100px 20px;
+    background: linear-gradient(180deg, #f6f3ff 0%, #ffffff 100%);
+    overflow: hidden;
+}
 
-       
-    }
+/* glow */
+.sd-section::before {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(39,69,120,0.15), transparent 60%);
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    filter: blur(40px);
+}
 
-    .bg-image {
-        position: absolute;
-        /* inset: 0; */
+/* =========================
+TEXT
+========================= */
+.sd-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+    color: #274578;
+    letter-spacing: 2px;
+}
 
-        width: 100%;
-        height: 100%;
-        bottom: 210px;
+.sd-subtitle {
+    text-align: center;
+    max-width: 650px;
+    margin: 10px auto 50px;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.8;
+}
 
-        object-fit: cover;
+/* =========================
+ARCH BOX
+========================= */
+.sd-arch {
+    position: relative;
 
-        opacity: .5;
+    background-size: cover;           /* biar penuh */
+    background-position: center;      /* fokus tengah */
+    background-repeat: no-repeat;
 
-        z-index: 0;
-    }
-    .rumah {
-        position: absolute;
-        /* bottom: ; */
-        z-index: 1;
-    }
+    border-radius: 200px 200px 0 0;
+    border: 1px solid rgba(39,69,120,0.15);
 
-    .tree-left,
-    .tree-right,
-    .tree-mid {
-        position: absolute;
-        z-index: 1;
-    }
+    padding: 70px 25px 90px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
 
-    
+    overflow: hidden;
+}
 
-    .tree-left {
-        width: 380px;
+/* supaya teks tidak ketabrak background */
+.sd-arch::before {
+    content: "";
+    position: absolute;
+    inset: 0;
 
-        left: -170px;
-        bottom: 230px;
+    background: rgba(255,255,255,0.55); /* overlay putih soft */
+    z-index: 0;
+}
 
-        transform: scaleX(-1) rotate(-20deg);
-    }
+/* =========================
+PEOPLE
+========================= */
+.sd-people {
+    display: flex;
+    top: 40px;
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
 
-    .tree-right {
-        width: 380px;
+.sd-person {
+    padding: 10px;
+}
 
-        right: -170px;
-        bottom: 230px;
+.sd-name {
+    font-family: "Lobster Two", cursive;
+    font-size: 18px;
+    font-weight: 700;
+    color: #274578;
+    letter-spacing: 0.5px;
+}
 
-        transform: rotate(-20deg);
-    }
+.sd-desc {
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    color: #555;
+    line-height: 1.7;
+}
 
-    .bunga-left{
-        position: absolute;
-        bottom: -130px;
-        width: 300px;
-        left: -120px;
-        transform: scaleX(-1) rotate(-20deg);
-        z-index: 3;
-    }
+.sd-ig {
+    font-family: "Inter", sans-serif;
+}
 
-    .bunga-right{
-        position: absolute;
-        bottom: -130px;
-        width: 300px;
-        right: -120px;
-        transform: rotate(-20deg);
-        z-index: 3;
-    }
-    .bunga-bottom{
-        position: absolute;
-        bottom: -300px;
-    }
-    .bunga-gif{
-        position: absolute;
-        bottom: -240px;
-        z-index: 10;
-    }
-    .wayang-left{
-        position: absolute;
-        bottom: -140px;
-        left: -150px;
-        transform: scaleX(-1) rotate(-7deg);
-        z-index: 2;
-    }
-    .wayang-right{
-        position: absolute;
-        bottom: -140px;
-        right: -150px;
-        transform: rotate(-7deg);
-        z-index: 2;
-    }
-    .pohon-left{
-        position: absolute;
-        bottom: -10px;
-        left: -80px;
-        width: 300px;
-        z-index: 1;
-    }
-    .pohon-right{
-        position: absolute;
-        bottom: -10px;
-        right: -150px;
-        width: 300px;
-        z-index: 1;
-    }
+/* divider */
+.sd-divider {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    color: #274578;
+    opacity: 0.6;
+}
 
-    .hero-content {
-        position: relative;
-        z-index: 10;
-
-        height: 100%;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        text-align: center;
-        padding: 24px;
-    }
-    .arch-box {
-        position: absolute;
-
-        left: 50%;
-        top: 120px;
-        bottom: 0;
-
-        width: 350px;
-
-        transform: translateX(-50%);
-
-        border-radius: 180px 180px 0 0;
-
-        background: rgba(255,255,255,.8);
-
-        border: 1px solid rgba(255,255,255,.35);
-
-        box-shadow:
-            0 10px 40px rgba(0,0,0,.12);
-
-        z-index: 2;
-    }
-    .arch-box::before {
-        content: "";
-
-        position: absolute;
-        inset: 0;
-
-        border-radius: inherit;
-
-        border: 10px solid #c084fc;
-
-        clip-path: inset(0 50% 0 50%);
-
-        animation: drawBorderCenter 4s ease forwards;
-        animation-delay: 2s;
-    }
-    @keyframes drawBorderCenter {
-        from {
-            clip-path: inset(0 50% 0 50%);
-        }
-
-        to {
-            clip-path: inset(0 0 0 0);
-        }
-    }
-
-    /* ==================================
-    HERO OPENING ANIMATION
-    ================================== */
-
-    @keyframes fadeUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes fadeScale {
-        from {
-            opacity: 0;
-            transform: scale(.9);
-        }
-
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    @keyframes archFade {
-        from {
-            opacity: 0;
-            transform: translateX(-50%) scale(.95);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateX(-50%) scale(1);
-        }
-    }
-
-    /* ==================================
-    INITIAL STATE
-    ================================== */
-
-    .arch-box,
-    .rumah,
-    .pohon-left,
-    .pohon-right,
-    .tree-left,
-    .tree-right,
-    .wayang-left,
-    .wayang-right,
-    .bunga-left,
-    .bunga-right,
-    .bunga-bottom,
-    .bunga-gif,
-    .hero-content {
+/* =========================
+ANIMATION
+========================= */
+@keyframes sdFadeUp {
+    from {
         opacity: 0;
+        transform: translateY(40px);
     }
-
-    /* ==================================
-    ARCH
-    ================================== */
-
-    .arch-box {
-        animation:
-            archFade 1.2s ease forwards;
-
-        animation-delay: 2.6s;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
+}
 
-    /* ==================================
-    POHON HITAM
-    ================================== */
+/* =========================
+SCROLL ANIMATION BASE
+========================= */
+.sd-animate {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+    will-change: transform, opacity;
+}
 
-    .pohon-left,
-    .pohon-right {
-        animation:
-            fadeUp 1s ease forwards;
+.sd-animate.show {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        animation-delay: 1s;
-    }
+/* stagger delay */
+.sd-delay-1 { transition-delay: 0.1s; }
+.sd-delay-2 { transition-delay: 0.2s; }
+.sd-delay-3 { transition-delay: 0.3s; }
+.sd-delay-4 { transition-delay: 0.4s; }
 
-    /* ==================================
-    TREE BESAR
-    ================================== */
-
-    .tree-left,
-    .tree-right {
-        animation:
-            fadeUp 1.2s ease forwards;
-
-        animation-delay: 1.4s;
-    }
-
-    /* ==================================
-    RUMAH
-    ================================== */
-
-    .rumah {
-        animation:
-            fadeUp 1.2s ease forwards;
-
-        animation-delay: 1.2s;
-    }
-
-    /* ==================================
-    WAYANG
-    ================================== */
-
-    .wayang-left,
-    .wayang-right {
-        animation:
-            fadeScale 1.2s ease forwards;
-
-        animation-delay: 1.6s;
-    }
-
-    /* ==================================
-    BUNGA
-    ================================== */
-
-    .bunga-left,
-    .bunga-right,
-    .bunga-bottom,
-    .bunga-gif {
-        animation:
-            fadeScale 1.2s ease forwards;
-
-        animation-delay: 1.8s;
-    }
-
-    /* ==================================
-    CONTENT
-    ================================== */
-
-    .hero-content {
-        animation:
-            fadeUp 1.2s ease forwards;
-
-        animation-delay: 4.5s;
-    }
-    
-    
 </style>
+<section class="sd-section">
 
-<section class="hero">
+    <div class="sd-title sd-animate sd-delay-1">Our Special Day</div>
 
-    {{-- Background --}}
-    {{-- sementara dimatikan dulu --}}
-    <img src="{{ asset('images/ungu/bg.png') }}" class="bg-image">
-    <img src="{{ asset('images/ungu/rumah.png') }}" class="rumah">
+    <p class="sd-subtitle sd-animate sd-delay-2">
+        Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i serta kerabat sekalian
+        untuk menghadiri acara pernikahan kami:
+    </p>
 
-    {{-- pohon hitam Kiri --}}
-    <img
-        src="{{ asset('images/ungu/pohon-black.png') }}"
-        class="pohon-left"
-        alt=""
-    >
-    {{-- pohon hitam Kanan --}}
-    <img
-        src="{{ asset('images/ungu/pohon-black.png') }}"
-        class="pohon-right"
-        alt=""
-    >
+    <div class="sd-wrapper">
 
-    {{-- Tree Kiri --}}
-    <img
-        src="{{ asset('images/ungu/tree.png') }}"
-        class="tree-left"
-        alt=""
-    >
+        <div class="sd-arch" style="background-image: url('{{ asset('images/biru/bg-cover1.png') }}');">
 
-    {{-- Tree Kanan --}}
-    <img
-        src="{{ asset('images/ungu/tree.png') }}"
-        class="tree-right"
-        alt=""
-    >
+            <div class="sd-people">
 
-    <div class="arch-box"></div>
+                <!-- Bride -->
+                <div class="sd-person sd-animate sd-delay-1">
+                    <h2 class="sd-name">Dwi Aqilah Pradita, S.Kom</h2>
+                    <p class="sd-desc">
+                        Putri kedua dari<br>
+                        Bapak Drs. Didik & Ibu Sri Hartati, S.Pd
+                    </p>
 
-  
-    
-    {{-- bunga kiri --}}
-    <img
-        src="{{ asset('images/ungu/bunga.png') }}"
-        class="bunga-left"
-        alt=""
-    >
-    
-    {{-- wayang Kiri --}}
-    <img
-        src="{{ asset('images/ungu/wayang.png') }}"
-        class="wayang-left"
-        alt=""
-    >
-    {{-- wayang Kanan --}}
-    <img
-        src="{{ asset('images/ungu/wayang.png') }}"
-        class="wayang-right"
-        alt=""
-    >
-    {{-- bunga Kanan --}}
-    <img
-        src="{{ asset('images/ungu/bunga.png') }}"
-        class="bunga-right"
-        alt=""
-    >
-    {{-- bunga bawah --}}
-    <img
-        src="{{ asset('images/ungu/bunga-bottom.png') }}"
-        class="bunga-bottom"
-        alt=""
-    >
-    {{-- bunga gif --}}
-    <img
-        src="{{ asset('images/ungu/bunga.gif') }}"
-        class="bunga-gif"
-        alt=""
-    >
+                    <a class="sd-ig" href="https://instagram.com/dwaqlhprdt" target="_blank">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
 
-    {{-- Content --}}
-    <div class="hero-content">
+                <div class="sd-divider sd-animate sd-delay-3">&</div>
 
+                <!-- Groom -->
+                <div class="sd-person sd-animate sd-delay-2">
+                    <h2 class="sd-name">Muhammad Fathuthoriq, S.Kom</h2>
+                    <p class="sd-desc">
+                        Putra ketiga dari<br>
+                        Bapak Heru Amidarma & Ibu Asmawati (Almh)
+                    </p>
 
-            <p class="tracking-[0.3em] uppercase text-sm text-stone mb-4">
-                The Wedding Of
-            </p>
+                   <a class="sd-ig" href="https://instagram.com/ThoriqFathu" target="_blank">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
 
-            <h1 class="text-5xl font-[Cinzel] text-stone leading-tight">
-                {{ data_get($payload,'bride.nickname') }}
-                <br>
-                &
-                <br>
-                {{ data_get($payload,'groom.nickname') }}
-            </h1>
+            </div>
 
-            <p class="mt-6 text-stone" style="font-size: 22px">
-                28 Juni 2026
-            </p>
-
+        </div>
     </div>
 
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const elements = document.querySelectorAll(".sd-animate");
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+            } else {
+                // ini bikin animasi HILANG saat scroll keluar
+                entry.target.classList.remove("show");
+            }
+
+        });
+    }, {
+        threshold: 0.2
+    });
+
+    elements.forEach(el => observer.observe(el));
+
+});
+</script>
+

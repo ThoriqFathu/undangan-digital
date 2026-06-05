@@ -1,131 +1,282 @@
-<section
-    x-data
-    class="relative min-h-screen overflow-hidden bg-[#f1eff0]"
-    x-transition:leave="transition ease-in duration-700"
-    x-transition:leave-start="opacity-100 scale-100"
-    x-transition:leave-end="opacity-0 scale-105"
->
+<style>
+/* =========================
+COVER CINEMATIC BLUE THEME
+========================= */
 
-    <!-- 🌊 Depth Layer (biar cinematic & mahal) -->
-    <div class="absolute inset-0 bg-gradient-radial from-transparent via-[#f1eff0]/40 to-[#f1eff0]"></div>
-    <div class="absolute inset-0 bg-black/5"></div>
+section.cover {
+    position: relative;
+    min-height: 100dvh;
+    overflow: hidden;
 
-    {{-- Ornamen kiri atas --}}
-    <div class="absolute top-0 left-0 w-64 h-64 opacity-10 animate-float-slow">
-        <svg viewBox="0 0 200 200" fill="currentColor">
-            <path d="M50 20C80 60 90 120 40 180"/>
-            <path d="M80 40C120 80 120 140 90 190"/>
-        </svg>
-    </div>
+    background: #274578;
+}
 
-    {{-- Ornamen kanan bawah --}}
-    <div class="absolute bottom-0 right-0 w-64 h-64 opacity-10 rotate-180 animate-float-slow">
-        <svg viewBox="0 0 200 200" fill="currentColor">
-            <path d="M50 20C80 60 90 120 40 180"/>
-            <path d="M80 40C120 80 120 140 90 190"/>
-        </svg>
-    </div>
+/* soft depth glow */
+.cover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
 
-    {{-- Content --}}
-    <div class="relative z-10 min-h-screen flex items-center justify-center px-6">
+    background:
+        radial-gradient(circle at center,
+            rgba(255,255,255,.10),
+            transparent 60%);
 
-        <div class="text-center max-w-xl">
+    z-index: 0;
+}
 
-            {{-- MONOGRAM --}}
-            <div class="relative inline-flex items-center justify-center opacity-0 fade-premium">
+.cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
 
-                {{-- Outer Ring --}}
-                <div class="w-36 h-36 rounded-full border border-gray-300 flex items-center justify-center">
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,.15),
+        rgba(0,0,0,.35)
+    );
 
-                    {{-- Inner Ring --}}
-                    <div class="w-28 h-28 rounded-full border border-gray-200 flex items-center justify-center bg-white/60 backdrop-blur-sm">
+    z-index: 0;
+}
 
-                        <div class="relative -translate-x-2">
+/* =========================
+ORNAMENT FLOAT
+========================= */
 
-                            <span class="text-6xl font-cormorant text-gray-700">
-                                {{ strtoupper(substr(data_get($payload,'bride.nickname'),0,1)) }}
-                            </span>
+.floral {
+    position: absolute;
+    opacity: .12;
+    z-index: 1;
+    animation: floatSlow 8s ease-in-out infinite;
+}
 
-                            <span class="absolute -right-6 top-6 text-4xl font-cormorant text-gray-500">
-                                {{ strtoupper(substr(data_get($payload,'groom.nickname'),0,1)) }}
-                            </span>
+@keyframes floatSlow {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
 
-                        </div>
+/* =========================
+CENTER CONTENT
+========================= */
 
-                    </div>
+.cover-content {
+    position: relative;
+    z-index: 10;
 
-                </div>
+    min-height: 100dvh;
 
-                {{-- Ornament --}}
-                <div class="absolute -left-8 text-gray-300 text-3xl">✦</div>
-                <div class="absolute -right-8 text-gray-300 text-3xl">✦</div>
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-            </div>
+    text-align: center;
 
-            {{-- TITLE --}}
-            <p class="mt-10 uppercase tracking-[0.4em] text-gray-500 text-sm opacity-0 fade-premium"
-               style="animation-delay: 0.2s;">
-                {{ data_get($payload, 'cover.title') }}
-            </p>
+    padding: 20px;
+}
 
-            {{-- NAMES --}}
-            <div class="mt-8 opacity-0 fade-premium"
-                 style="animation-delay: 0.5s;">
+/* =========================
+MONOGRAM CLEAN
+========================= */
 
-                <h1 class="font-brilon text-[2.1rem] md:text-[1rem] lg:text-[2rem] xl:text-[3rem] leading-none tracking-[-0.04em] text-gray-800">
+.monogram {
+    position: relative;
 
-                    {{ data_get($payload, 'bride.nickname') }}
+    width: 120px;
+    height: 120px;
 
-                    <span class="mx-2 text-gray-400 font-light">&</span>
+    border-radius: 999px;
 
-                    {{ data_get($payload, 'groom.nickname') }}
+    border: 1px solid rgba(255,255,255,.25);
 
-                </h1>
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            </div>
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(10px);
 
-            {{-- GUEST --}}
-            <div class="mt-12 opacity-0 fade-premium"
-                 style="animation-delay: 0.9s;">
+    margin-bottom: 30px;
+}
 
-                <p class="text-gray-500">
-                    Kepada Yth.
-                </p>
+.monogram span {
+    font-size: 42px;
+    font-weight: 500;
+    color: #fff;
+}
 
-                <p class="font-semibold text-lg mt-2">
-                    {{ request('to', 'Tamu Undangan') }}
-                </p>
+.monogram::after {
+    content: "";
 
-            </div>
+    position: absolute;
+    inset: -10px;
 
-            {{-- BUTTON --}}
-            <button
-                class="mt-10 inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gray-800 text-white shadow-xl hover:scale-105 transition duration-300 opacity-0 fade-premium"
-                style="animation-delay: 1.2s;"
-                @click="
-                    opened = true;
+    border-radius: 999px;
 
-                    setTimeout(() => {
-                        document.getElementById('main-content')
-                            ?.scrollIntoView({ behavior: 'smooth' });
-                    }, 500);
-                "
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                     viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
+    border: 1px solid rgba(255,255,255,.12);
 
-                <span>Buka Undangan</span>
-            </button>
+    animation: pulse 3s ease-in-out infinite;
+}
 
-            {{-- SCROLL --}}
-            <div class="mt-12 animate-bounce text-gray-400">
-                ↓
-            </div>
+@keyframes pulse {
+    0%,100% {
+        transform: scale(.95);
+        opacity: .4;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: .8;
+    }
+}
 
+/* =========================
+TEXT STYLE
+========================= */
+
+.cover-title {
+    color: rgba(255,255,255,.75);
+
+    font-size: 12px;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+
+    margin-bottom: 18px;
+}
+
+.cover-name {
+    font-family: serif;
+
+    font-size: 42px;
+    line-height: 1.1;
+
+    color: #fff;
+
+    letter-spacing: -0.02em;
+}
+
+.cover-and {
+    color: rgba(255,255,255,.6);
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+/* =========================
+GUEST BOX
+========================= */
+
+.guest {
+    margin-top: 40px;
+}
+
+.guest p {
+    color: rgba(255,255,255,.6);
+    font-size: 13px;
+}
+
+.guest strong {
+    color: #fff;
+    font-size: 16px;
+}
+
+/* =========================
+BUTTON
+========================= */
+
+.open-btn {
+    margin-top: 40px;
+
+    padding: 12px 22px;
+
+    border-radius: 999px;
+
+    background: rgba(255,255,255,.95);
+    color: #274578;
+
+    font-weight: 600;
+    font-size: 13px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    box-shadow: 0 15px 30px rgba(0,0,0,.25);
+
+    transition: .3s ease;
+}
+
+.open-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+}
+
+/* =========================
+SCROLL INDICATOR
+========================= */
+
+.scroll {
+    margin-top: 35px;
+    color: rgba(255,255,255,.5);
+    animation: bounce 1.8s infinite;
+}
+
+@keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+}
+</style>
+
+<section class="cover">
+
+    <!-- ornaments (optional assets) -->
+    <img src="{{ asset('images/ungu/bunga.png') }}" class="floral" style="top:-60px; left:-40px; width:220px;">
+    <img src="{{ asset('images/ungu/bunga.png') }}" class="floral" style="bottom:-80px; right:-50px; width:260px; transform: rotate(180deg);">
+
+    <div class="cover-content">
+
+        <!-- MONOGRAM -->
+        <div class="monogram">
+            <span>
+                {{ strtoupper(substr(data_get($payload,'bride.nickname'),0,1)) }}
+                {{ strtoupper(substr(data_get($payload,'groom.nickname'),0,1)) }}
+            </span>
         </div>
-    </div>
 
+        <!-- TITLE -->
+        <div class="cover-title">
+            {{ data_get($payload, 'cover.title', 'The Wedding Of') }}
+        </div>
+
+        <!-- NAMES -->
+        <div class="cover-name">
+            {{ data_get($payload,'bride.nickname') }}
+        </div>
+
+        <div class="cover-and">&</div>
+
+        <div class="cover-name">
+            {{ data_get($payload,'groom.nickname') }}
+        </div>
+
+        <!-- GUEST -->
+        <div class="guest">
+            <p>Kepada Yth.</p>
+            <strong>{{ request('to', 'Tamu Undangan') }}</strong>
+        </div>
+
+        <!-- BUTTON -->
+        <button
+            class="open-btn"
+            @click="
+                opened = true;
+                setTimeout(() => {
+                    document.getElementById('main-content')
+                        ?.scrollIntoView({ behavior: 'smooth' });
+                }, 500);
+            "
+        >
+            Buka Undangan
+        </button>
+
+      
+
+    </div>
 </section>
