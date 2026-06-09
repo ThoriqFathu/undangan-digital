@@ -646,12 +646,14 @@ body{
         0 4px 12px rgba(0,0,0,.25);
 }
 
-
+.couple{
+    transform: translateX(4px) translateY(-130px) scale(0.18);
+}
 </style>
 </head>
 <body>
 <audio
-    id="bgMusic###"
+    id="bgMusic"
     loop
 >
     <source
@@ -775,7 +777,7 @@ body{
                 <div class="world">
 
                     <img src="{{ asset('images/motion/blue/2.webp') }}" class="bg">
-                    <img src="{{ asset('images/motion/blue/3.webp') }}" class="couple">
+                    <img src="{{ asset('images/motion/blue/couple.webp') }}" class="couple">
                     <img src="{{ asset('images/motion/blue/5.webp') }}" class="gate-back">
                     <img src="{{ asset('images/motion/blue/6.webp') }}" class="gate-mid">
                     <img src="{{ asset('images/motion/blue/7.webp') }}" class="gate-front">
@@ -855,7 +857,7 @@ const tl = gsap.timeline({
     scrollTrigger:{
         trigger:"#journey",
         start:"top top",
-        end:"+=2500",
+        end:"+=3200",
         scrub:1,
         pin:true,
         pinSpacing:true,
@@ -919,9 +921,9 @@ tl.to(".bg", {
 }, 0);
 
 tl.to(".couple", {
-    scale:2.6,
+    scale:1.1,
     x:() => -window.innerWidth * 0.18,
-    y:() => window.innerHeight * 0.46,
+    y:70,
     ease:"none"
 }, 0);
 tl.fromTo(".scene-text-bride",
@@ -961,7 +963,7 @@ tl.to(".scene-text-groom",
 1.09);
 
 tl.to(".couple", {
-    x:() => window.innerWidth * 0.14
+    x:105,
 }, 0.6);
 
 tl.to(".bg", {
@@ -971,9 +973,9 @@ tl.to(".bg", {
 }, 1);
 
 tl.to(".couple", {
-    scale:1.4,
-    x:0,
-    y:40,
+    scale:0.4,
+    x:5,
+    y:-120,
     ease:"none"
 }, 1);
 
