@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 
@@ -19,6 +20,20 @@ body{
     overflow-x:hidden;
     background:#496682;
     font-family:sans-serif;
+}
+
+.mobile-wrapper{
+    width:100%;
+    max-width:430px;
+    min-height:100vh;
+
+    margin:0 auto;
+
+    position:relative;
+
+    background:#496682;
+
+    overflow:hidden;
 }
 @font-face{
     font-family:'Symphony';
@@ -63,7 +78,7 @@ body{
     text-align:center;
     color:white;
 
-    transform:translateX(-20px);
+    /* transform:translateX(-20px); */
 }
 
 .cover-label{
@@ -213,16 +228,20 @@ body{
 }
 .bride-name,
 .groom-name{
-    font-family:'Symphony', cursive;
+    font-family: "Lobster Two", cursive;
 
-    color:rgb(0, 81, 255);
+    font-size:24px;
+    font-weight:normal;
 
-    font-size:20px;
-    font-weight:600;
+    color:#163d63;
 
-    line-height:1;
+    line-height:1.2;
 
-    margin-bottom:16px;
+    margin-bottom:14px;
+
+    text-shadow:
+        0 1px 0 rgba(255,255,255,.5),
+        0 4px 12px rgba(0,0,0,.15);
 }
 
 .asap{
@@ -230,35 +249,18 @@ body{
 
     left:50%;
 
-    width:370px;
-
+    width:420px;
+    top: -20px;
     transform:
         translate(-50%, -50%)
-        scale(1.2);
+        scale(1.3);
 
-    opacity:1;
+    /* opacity:.35; */
+
 
     pointer-events:none;
 }
-
-.bride-card{
-    position: absolute;
-    top: -160px;
-    z-index:2;
-    transform:translateY(100px);
-}
-
-
-
-
-.bride-parent{
-    color:rgb(45, 66, 251);
-
-    font-size:12px;
-    line-height:1.8;
-    font-style: italic;
-    opacity:.8;
-}
+.bride-card,
 .groom-card{
     position: absolute;
     top: -160px;
@@ -266,18 +268,74 @@ body{
     transform:translateY(100px);
 }
 
-
-
-
+.bride-parent,
 .groom-parent{
-    color:rgb(45, 66, 251);
-    font-style: italic;
+    color:#274f77;
+
     font-size:12px;
+
     line-height:1.8;
 
-    opacity:.8;
+    font-style:italic;
+
+    letter-spacing:.5px;
 }
 
+.person-label{
+    position:relative;
+
+    display:inline-block;
+
+    margin-bottom:26px;
+
+    color:rgba(3, 11, 37, 0.85);
+
+    font-size:10px;
+
+    letter-spacing:5px;
+
+    text-transform:uppercase;
+
+    font-weight:500;
+}
+.person-label::before{
+    content:"✦";
+
+    position:absolute;
+
+    left:50%;
+    bottom:-16px;
+
+    transform:translateX(-50%);
+
+    font-size:10px;
+
+    color:rgba(3, 11, 37, 0.85);
+
+    z-index:2;
+}
+
+.person-label::after{
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+    bottom:-10px;
+
+    transform:translateX(-50%);
+
+    width:100px;
+    height:1px;
+
+    background:
+        linear-gradient(
+            to right,
+            transparent,
+            rgba(3, 11, 37, 0.85),
+            transparent
+        );
+}
 /* =========================
    EVENT COVER
 ========================= */
@@ -516,12 +574,84 @@ body{
         0 10px 25px rgba(0,0,0,.25);
 }
 
+.welcome-mat{
+    position:absolute;
+    bottom:40px;
+    left:50%;
+    transform:translateX(-50%);
+    width:320px;
+    text-align:center;
+    pointer-events:none;
+
+    perspective: 1000px;
+    perspective-origin: center bottom;
+}
+.welcome-board{
+    position: absolute;
+    left: 50%;
+
+    transform:
+        translateX(-50%)
+        translateY(-300px)
+        rotateX(25deg)
+        scaleY(0.75);
+
+    transform-origin: bottom center;
+
+    padding:18px 24px;
+
+    border-radius:20px;
+
+    background: rgba(255,255,255,.08);
+
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    box-shadow: 0 12px 40px rgba(0,0,0,.25);
+
+    /* 🔥 INI YANG MEMBUAT TRAPESIUM SIMETRIS */
+    clip-path: polygon(
+        18% 0%,
+        82% 0%,
+        100% 100%,
+        0% 100%
+    );
+}
+
+.welcome-label{
+
+    font-size:10px;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+
+    color:rgba(255,255,255,.75);
+
+    margin-bottom:10px;
+}
+
+.welcome-name{
+
+    font-family:'Symphony', cursive;
+
+    font-size:50px;
+
+    line-height:1.1;
+
+    color:white;
+
+    text-shadow:
+        0 4px 12px rgba(0,0,0,.25);
+}
+
 
 </style>
 </head>
 <body>
 <audio
-    id="bgMusic"
+    id="bgMusic###"
     loop
 >
     <source
@@ -529,157 +659,186 @@ body{
         type="audio/mpeg"
     >
 </audio>
-<div id="invitation-cover">
 
-    <div class="cover-overlay"></div>
+<div class="mobile-wrapper">
+    
+    <div id="invitation-cover">
 
-    <div class="cover-content">
+        <div class="cover-overlay"></div>
 
-        <div class="cover-label">
-            THE WEDDING OF
-        </div>
+        <div class="cover-content">
 
-        <h1 class="cover-title">
-            Dwi Aqilah <br>
-            & <br>
-            Fathuthoriq
-        </h1>
-
-        <div class="cover-date">
-            28 Juni 2026
-        </div>
-
-        <div class="guest-box">
-            Kepada Yth.
-            <strong>{{ request('to') ?? 'Tamu Undangan' }}</strong>
-        </div>
-
-        <button id="openInvitation">
-            💌 Buka Undangan
-        </button>
-
-    </div>
-
-</div>
-
-
-<div class="scene-text-bride">
-
-    <img
-        src="{{ asset('images/motion/blue/asap.png') }}"
-        class="asap"
-        alt=""
-    >
-
-    <div class="bride-card">
-
-        <h2 class="bride-name">
-            Dwi Aqilah Pradita, S.Kom
-        </h2>
-
-        <p class="bride-parent">
-            Putri kedua dari<br>
-            Bapak Didik & Ibu Sri Hartati
-        </p>
-
-    </div>
-
-</div>
-<div class="scene-text-groom">
-
-    <img
-        src="{{ asset('images/motion/blue/asap.png') }}"
-        class="asap"
-        alt=""
-    >
-
-    <div class="groom-card">
-
-        <h2 class="groom-name">
-            Muhammad Fathuthoriq , S.Kom
-        </h2>
-
-        <p class="groom-parent">
-            Putra ketiga dari<br>
-            Bapak Heru Amidarma & Ibu Asmawati <br> (Almh)
-        </p>
-
-    </div>
-
-</div>
-
-<div id="invitation-content">
-    <div id="journey">
-
-        <!-- SCENE -->
-        <section class="scene">
-
-            <div class="world">
-
-                <img src="{{ asset('images/motion/blue/2.webp') }}" class="bg">
-                <img src="{{ asset('images/motion/blue/3.webp') }}" class="couple">
-                <img src="{{ asset('images/motion/blue/5.webp') }}" class="gate-back">
-                <img src="{{ asset('images/motion/blue/6.webp') }}" class="gate-mid">
-                <img src="{{ asset('images/motion/blue/7.webp') }}" class="gate-front">
-
+            <div class="cover-label">
+                THE WEDDING OF
             </div>
 
-        </section>
+            <h1 class="cover-title">
+                Dwi Aqilah <br>
+                & <br>
+                Fathuthoriq
+            </h1>
 
-        <!-- EVENT COVER -->
+            <div class="cover-date">
+                28 Juni 2026
+            </div>
 
-        <section class="event-cover">
+            <div class="guest-box">
+                Kepada Yth.
+                <strong>{{ request('to') ?? 'Tamu Undangan' }}</strong>
+            </div>
 
-            <div class="event-glow"></div>
+            <button id="openInvitation">
+                💌 Buka Undangan
+            </button>
 
-            <div class="event-frame">
+        </div>
 
-                <div class="event-label">
-                    WEDDING RECEPTION
+    </div>
+
+
+   
+
+    <div id="invitation-content">
+        <div id="journey">
+            <div class="welcome-mat">
+
+                <div class="welcome-board">
+
+                    <div class="welcome-label">
+                        The Wedding Of
+                    </div>
+
+                    <div class="welcome-name">
+                        Aqila & Thoriq
+                    </div>
+
                 </div>
 
-        
+            </div>
+            <div class="scene-text-bride">
 
-                <div class="event-date">
-                    Minggu, 28 Juni 2026
-                </div>
-
-                <div class="event-divider"></div>
-
-                <div class="event-time">
-                    10:00 - 13:00 WIB
-                </div>
-
-                <div class="event-place">
-                    Kediaman Mempelai Wanita
-                </div>
-
-                <div class="event-address">
-                    Jl. Yakurt Blok ED No.29<br>
-                    Perumahan Taman Gili<br>
-                    Kamal, Bangkalan
-                </div>
-
-                <a
-                    href="https://maps.google.com"
-                    target="_blank"
-                    class="maps-btn"
+                <img
+                    src="{{ asset('images/motion/blue/asap.png') }}"
+                    class="asap"
+                    alt=""
                 >
-                    📍 Lihat Lokasi
-                </a>
+
+                <div class="bride-card">
+
+                    <div class="person-label">
+                        THE BRIDE
+                    </div>
+
+                    <h2 class="bride-name">
+                        Dwi Aqilah Pradita, S.Kom
+                    </h2>
+
+                    <p class="bride-parent">
+                        Putri kedua dari<br>
+                        Bapak Didik & Ibu Sri Hartati
+                    </p>
+
+                </div>
 
             </div>
 
-        </section>
+            <div class="scene-text-groom">
 
+                <img
+                    src="{{ asset('images/motion/blue/asap.png') }}"
+                    class="asap"
+                    alt=""
+                >
+
+                <div class="groom-card">
+
+                    <div class="person-label">
+                        THE GROOM
+                    </div>
+
+                    <h2 class="groom-name">
+                        Muhammad Fathuthoriq, S.Kom
+                    </h2>
+
+                    <p class="groom-parent">
+                        Putra ketiga dari<br>
+                        Bapak Heru Amidarma & Ibu Asmawati <br> (Almh)
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- SCENE -->
+            <section class="scene">
+
+                <div class="world">
+
+                    <img src="{{ asset('images/motion/blue/2.webp') }}" class="bg">
+                    <img src="{{ asset('images/motion/blue/3.webp') }}" class="couple">
+                    <img src="{{ asset('images/motion/blue/5.webp') }}" class="gate-back">
+                    <img src="{{ asset('images/motion/blue/6.webp') }}" class="gate-mid">
+                    <img src="{{ asset('images/motion/blue/7.webp') }}" class="gate-front">
+
+                </div>
+
+            </section>
+
+            <!-- EVENT COVER -->
+
+            <section class="event-cover">
+
+                <div class="event-glow"></div>
+
+                <div class="event-frame">
+
+                    <div class="event-label">
+                        WEDDING RECEPTION
+                    </div>
+
+            
+
+                    <div class="event-date">
+                        Minggu, 28 Juni 2026
+                    </div>
+
+                    <div class="event-divider"></div>
+
+                    <div class="event-time">
+                        10:00 - 13:00 WIB
+                    </div>
+
+                    <div class="event-place">
+                        Kediaman Mempelai Wanita
+                    </div>
+
+                    <div class="event-address">
+                        Jl. Yakurt Blok ED No.29<br>
+                        Perumahan Taman Gili<br>
+                        Kamal, Bangkalan
+                    </div>
+
+                    <a
+                        href="https://maps.google.com"
+                        target="_blank"
+                        class="maps-btn"
+                    >
+                        📍 Lihat Lokasi
+                    </a>
+
+                </div>
+
+            </section>
+
+        </div>
     </div>
-</div>
 
-<!-- LOVE STORY -->
-@include('themes.motion.partials.love-story')
-@include('themes.motion.partials.wedding-gift')
-@include('themes.motion.partials.wishes')
-@include('themes.motion.partials.thank-you')
+    <!-- LOVE STORY -->
+    @include('themes.motion.partials.love-story')
+    @include('themes.motion.partials.wedding-gift')
+    @include('themes.motion.partials.wishes')
+    @include('themes.motion.partials.thank-you')
+</div>
 
 
 <script>
@@ -699,19 +858,44 @@ const tl = gsap.timeline({
         end:"+=2500",
         scrub:1,
         pin:true,
-        pinSpacing:true
+        pinSpacing:true,
+        onUpdate:(self)=>{
+
+            console.clear();
+
+            console.log(
+                "progress:",
+                self.progress.toFixed(3)
+            );
+
+            console.log(
+                "scroll:",
+                Math.round(self.scroll())
+            );
+
+        }
     }
 });
 
 /* =========================
    SCENE
 ========================= */
+/* =========================
+   HANGING TITLE
+========================= */
 
 tl.to(".world", {
     scale:3.5,
     y:400
 }, 0);
+tl.to(".welcome-mat", {
 
+    y:0,
+    opacity:0,
+
+    ease:"none"
+
+}, 0);
 tl.to(".gate-front", {
     scale:12,
     opacity:0
@@ -748,7 +932,7 @@ tl.fromTo(".scene-text-bride",
 {
     opacity:1,
     x: 100,
-    y:1100
+    y:250
 },
 0.2);
 tl.to(".scene-text-bride",
@@ -763,11 +947,18 @@ tl.fromTo(".scene-text-groom",
     y:0
 },
 {
+    scale: 0.9,
     opacity:1,
     x: -20,
-    y:1500
+    y:10
 },
-0.56);
+0.76);
+tl.to(".scene-text-groom",
+{
+    opacity:0,
+    y:-100
+},
+1.09);
 
 tl.to(".couple", {
     x:() => window.innerWidth * 0.14
@@ -825,6 +1016,7 @@ tl.from(".event-card", {
 </script>
 
 <script>
+
 document.body.style.overflow = "hidden";
 
 document
@@ -834,36 +1026,39 @@ document
         document.body.style.overflow = "";
 
         const cover = document.getElementById("invitation-cover");
-        
+
         gsap.to(cover, {
-            opacity: 0,
-            duration: 1,
+
+            opacity:0,
+            duration:1,
+
             onComplete() {
 
                 cover.remove();
 
-                // tampilkan konten
-                document.getElementById("invitation-content")
+                document
+                    .getElementById("invitation-content")
                     .style.visibility = "visible";
 
-                // refresh trigger
+             
                 ScrollTrigger.refresh();
 
-                // auto scroll sedikit agar trigger langsung hidup
                 window.scrollTo({
-                    top: 10,
-                    behavior: "smooth"
+                    top:10,
+                    behavior:"smooth"
                 });
+
             }
         });
 
-        // autoplay musik
         const music = document.getElementById("bgMusic");
 
         if (music) {
             music.play().catch(() => {});
         }
+
     });
+
 </script>
 </body>
 </html>
