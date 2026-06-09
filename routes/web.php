@@ -33,5 +33,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('invite/{slug}', [InvitationShowController::class, 'index'])->name('invite.index');
-
+Route::post(
+    '/invitations/guest-book',
+    [InvitationShowController::class, 'store']
+)->name('invitation.wishes.store');
 require __DIR__.'/auth.php';

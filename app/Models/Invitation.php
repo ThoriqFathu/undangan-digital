@@ -17,7 +17,15 @@ class Invitation extends Model
     {
         return $this->belongsTo(Order::class);
     }
+    public function wishes()
+    {
+        return $this->hasMany(InvitationWish::class);
+    }
 
+    public function rsvps()
+    {
+        return $this->hasMany(InvitationRsvp::class);
+    }
     protected $casts = [
         'payload' => 'array',
         'event_date' => 'date',
