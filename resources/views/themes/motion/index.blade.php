@@ -679,6 +679,7 @@ body{
 @include('themes.motion.partials.love-story')
 @include('themes.motion.partials.wedding-gift')
 @include('themes.motion.partials.wishes')
+@include('themes.motion.partials.thank-you')
 
 
 <script>
