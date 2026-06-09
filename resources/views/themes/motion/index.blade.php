@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+
 
 <style>
 *{
@@ -842,7 +841,8 @@ body{
     @include('themes.motion.partials.thank-you')
 </div>
 
-
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 <script>
 
 gsap.registerPlugin(ScrollTrigger);
@@ -857,7 +857,7 @@ const tl = gsap.timeline({
     scrollTrigger:{
         trigger:"#journey",
         start:"top top",
-        end:"+=3200",
+        end:"+=2000",
         scrub:1,
         pin:true,
         pinSpacing:true,
@@ -1013,7 +1013,7 @@ tl.from(".event-card", {
     opacity:0,
     scale:0.85,
     y:120
-}, 1.35);
+}, 0.3);
 
 </script>
 
@@ -1061,6 +1061,74 @@ document
 
     });
 
+</script>
+<script>
+    gsap.fromTo(
+        ".love-story-badge",
+        {
+            opacity: 0
+        },
+        {
+            opacity: 1,
+            duration: 1,
+            scrollTrigger: {
+                trigger: ".love-story-badge",
+                start: "top 85%",
+                toggleActions: "play reverse play reverse"
+            }
+        }
+    );
+    gsap.fromTo(
+        ".love-story-title",
+        {
+            opacity: 0
+        },
+        {
+            opacity: 1,
+            duration: 1,
+            scrollTrigger: {
+                trigger: ".love-story-title",
+                start: "top 85%",
+                toggleActions: "play reverse play reverse"
+            }
+        }
+    );
+    gsap.fromTo(
+        ".love-story-divider",
+        {
+            opacity: 0
+        },
+        {
+            opacity: 1,
+            duration: 1,
+            scrollTrigger: {
+                trigger: ".love-story-divider",
+                start: "top 85%",
+                toggleActions: "play reverse play reverse"
+            }
+        }
+    );
+    gsap.utils.toArray(".story-card p").forEach((p) => {
+
+        gsap.fromTo(
+            p,
+            {
+                opacity: 0,
+                filter: "blur(8px)",
+            },
+            {
+                opacity: 1,
+                filter: "blur(0px)",
+                duration: 1,
+                scrollTrigger: {
+                    trigger: p,
+                    start: "top 85%",
+                    toggleActions: "play reverse play reverse"
+                }
+            }
+        );
+
+    });
 </script>
 </body>
 </html>

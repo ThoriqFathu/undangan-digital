@@ -136,6 +136,15 @@
 .story-card p:last-child{
     margin-bottom:0;
 }
+.love-story-badge,
+.love-story-title,
+.love-story-divider,
+.story-card p{
+    opacity: 0;
+}
+
+
+
 </style>
 <section class="love-story-content">
 
@@ -186,3 +195,4 @@
     </div>
 
 </section>
+
