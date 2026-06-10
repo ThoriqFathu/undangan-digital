@@ -215,10 +215,10 @@
             WEDDING GIFT
         </div>
 
-        <h2 class="gift-title">
+        <h2 class="gift-title gift-left">
             Wedding
         </h2>
-        <h2 class="gift-title" style="margin-bottom: 24px;">
+        <h2 class="gift-title gift-right" style="margin-bottom: 24px;">
             Gift
         </h2>
 

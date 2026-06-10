@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&display=swap" rel="stylesheet">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+/>
 
 
 <style>
@@ -115,8 +119,27 @@ body{
 
     border-radius:20px;
 
-    background:
-        rgba(255,255,255,.08);
+    background:rgba(255,255,255,.08);
+
+    text-align:center;
+}
+
+.guest-label{
+    font-size:14px;
+
+    opacity:.8;
+
+    margin-bottom:8px;
+
+    letter-spacing:1px;
+}
+
+.guest-name{
+    font-size:22px;
+
+    font-weight:600;
+
+    line-height:1.4;
 }
 
 #openInvitation{
@@ -371,12 +394,12 @@ body{
     align-items:center;
     justify-content:center;
 
-    background:
+     background:
         radial-gradient(
             circle at center,
-            rgba(111,149,188,.8) 0%,
-            rgba(73,102,130,.8) 45%,
-            rgba(51,75,99,.8) 100%
+            #6f95bc 0%,
+            #496682 45%,
+            #334b63 100%
         );
 }
 
@@ -700,7 +723,7 @@ body{
 </head>
 <body>
 <audio
-    id="bgMusic####"
+    id="bgMusic"
     loop
 >
     <source
@@ -732,12 +755,18 @@ body{
             </div>
 
             <div class="guest-box">
-                Kepada Yth.
-                <strong>{{ request('to') ?? 'Tamu Undangan' }}</strong>
-            </div>
+    <div class="guest-label">
+        Kepada Yth.
+    </div>
+
+    <div class="guest-name">
+        {{ request('to') ?? 'Tamu Undangan' }}
+    </div>
+</div>
 
             <button id="openInvitation">
-                💌 Buka Undangan
+                <i class="fa-solid fa-envelope-open"></i>
+                Buka Undangan
             </button>
 
         </div>
@@ -784,7 +813,7 @@ body{
 
                     <p class="bride-parent">
                         Putri kedua dari<br>
-                        Bapak Didik & Ibu Sri Hartati
+                        Bapak Drs. Didik & Ibu Sri Hartati, S.Pd
                     </p>
 
                 </div>
@@ -841,38 +870,37 @@ body{
 
                 <div class="event-frame">
 
-                    <div class="event-label">
+                    <div class="event-label event-item">
                         WEDDING RECEPTION
                     </div>
 
-            
-
-                    <div class="event-date">
+                    <div class="event-date event-item">
                         Minggu, 28 Juni 2026
                     </div>
 
-                    <div class="event-divider"></div>
+                    <div class="event-divider event-item"></div>
 
-                    <div class="event-time">
+                    <div class="event-time event-item">
                         10:00 - 13:00 WIB
                     </div>
 
-                    <div class="event-place">
+                    <div class="event-place event-item">
                         Kediaman Mempelai Wanita
                     </div>
 
-                    <div class="event-address">
+                    <div class="event-address event-item">
                         Jl. Yakurt Blok ED No.29<br>
                         Perumahan Taman Gili<br>
                         Kamal, Bangkalan
                     </div>
 
                     <a
-                        href="https://maps.google.com"
+                        href="https://goo.gl/maps/veqp3GxN8kJW5Pxu7?g_st=ac"
                         target="_blank"
-                        class="maps-btn"
+                        class="maps-btn event-item"
                     >
-                        📍 Lihat Lokasi
+                        <i class="fa-solid fa-location-dot"></i>
+                        Lihat Lokasi
                     </a>
 
                 </div>
@@ -909,21 +937,7 @@ const tl = gsap.timeline({
         scrub:1,
         pin:true,
         pinSpacing:true,
-        onUpdate:(self)=>{
-
-            console.clear();
-
-            console.log(
-                "progress:",
-                self.progress.toFixed(3)
-            );
-
-            console.log(
-                "scroll:",
-                Math.round(self.scroll())
-            );
-
-        }
+      
     }
 });
 
@@ -1142,6 +1156,46 @@ document
     // =====================
     // PRESET ANIMATIONS
     // =====================
+    function typing(selector, speed = 50) {
+
+        gsap.utils.toArray(selector).forEach((element) => {
+
+            const originalText = element.textContent;
+
+            element.dataset.text = originalText;
+            element.textContent = "";
+
+            ScrollTrigger.create({
+                trigger: element,
+                start: "top 85%",
+
+                onEnter: () => {
+
+                    let i = 0;
+
+                    const timer = setInterval(() => {
+
+                        element.textContent =
+                            originalText.substring(0, i + 1);
+
+                        i++;
+
+                        if (i >= originalText.length) {
+                            clearInterval(timer);
+                        }
+
+                    }, speed);
+
+                },
+
+                onLeaveBack: () => {
+                    element.textContent = "";
+                }
+            });
+
+        });
+
+    }
 
     function fadeIn(selector) {
         animateOnScroll(selector, {
@@ -1290,6 +1344,7 @@ document
     // USAGE
     // =====================
 
+
     fadeIn(".love-story-badge");
     slideRight(".love-left");
     slideLeft(".story-right");
@@ -1299,6 +1354,25 @@ document
 
     flipY(".story-card");
 
+    slideDown(".gift-label");
+    slideRight(".gift-left");
+    slideLeft(".gift-right");
+    fadeIn(".gift-devider");
+    blurIn(".gift-description");
+    flipY(".gift-card");
+    
+
+    slideDown(".wishes-label");
+    slideRight(".wishes-left");
+    slideLeft(".wishes-right");
+    blurIn(".wishes-description");
+    fadeIn(".wishes-form");
+    flipY(".wish-card");
+
+    blurIn('.thankyou-text');
+    slideDown('.thankyou-label');
+    slideDown('.thankyou-title');
+    bounceIn('.thankyou-couple');
     // contoh lain:
     // slideUp(".gallery-item");
     // slideLeft(".timeline-card");

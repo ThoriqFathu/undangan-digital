@@ -185,8 +185,11 @@
             WISHES & RSVP
         </div>
 
-        <h2 class="wishes-title">
-            Ucapan & Doa
+        <h2 class="wishes-title wishes-left" style="margin: 0;">
+            Ucapan &
+        </h2>
+        <h2 class="wishes-title wishes-right" style="margin-bottom: 24px;">
+            Doa
         </h2>
 
         <p class="wishes-description">
