@@ -39,8 +39,8 @@
     font-weight:normal;
 
     color:white;
-
-    margin-bottom:24px;
+    margin: 0;
+    line-height: 1;
 }
 
 .gift-description{
@@ -197,6 +197,15 @@
 
     transform:translateY(-2px);
 }
+.gift-divider{
+    width:140px;
+    height:1px;
+
+    background:
+        rgba(255,255,255,.35);
+
+    margin:0 auto 50px;
+}
 </style>
 <section class="gift-section">
 
@@ -207,8 +216,13 @@
         </div>
 
         <h2 class="gift-title">
-            Wedding Gift
+            Wedding
         </h2>
+        <h2 class="gift-title" style="margin-bottom: 24px;">
+            Gift
+        </h2>
+
+        <div class="gift-divider"></div>
 
         <p class="gift-description">
             Doa restu Anda merupakan karunia yang sangat berarti bagi kami.

@@ -79,7 +79,8 @@
 
 .love-story-title{
     text-align:center;
-
+    margin: 0;
+    line-height: 1;
     font-family:'Great Vibes', cursive;
 
     font-size:82px;
@@ -87,8 +88,6 @@
     font-weight:400;
 
     color:white;
-
-    margin-bottom:24px;
 }
 
 .love-story-divider{
@@ -154,8 +153,12 @@
             OUR STORY
         </div>
 
-        <h2 class="love-story-title">
-            Love Story
+        <h2 class="love-story-title love-left">
+            Love
+        </h2>
+
+        <h2 class="love-story-title story-right" style="margin-bottom: 24px;">
+            Story
         </h2>
 
         <div class="love-story-divider"></div>

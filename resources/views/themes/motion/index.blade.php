@@ -166,12 +166,47 @@ body{
     transform-origin:center center;
 }
 
-.world img{
+/* .world img{
     position:absolute;
     inset:0;
     width:100%;
     height:100%;
     object-fit:cover;
+} */
+.bg,
+.gate-back,
+.gate-mid,
+.gate-front{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+.asap{
+    position:absolute;
+
+    left:50%;
+    width:420px;
+    top: -20px;
+    transform:
+        translate(-50%, -50%)
+        scale(1.3);
+
+    /* opacity:.35; */
+
+
+    pointer-events:none;
+}
+
+.couple{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    transform: translateX(4px) translateY(-128px) scale(0.28);
+    object-fit:contain;
+    /* object-position:center bottom; */
 }
 
 /* =========================
@@ -243,22 +278,7 @@ body{
         0 4px 12px rgba(0,0,0,.15);
 }
 
-.asap{
-    position:absolute;
 
-    left:50%;
-
-    width:420px;
-    top: -20px;
-    transform:
-        translate(-50%, -50%)
-        scale(1.3);
-
-    /* opacity:.35; */
-
-
-    pointer-events:none;
-}
 .bride-card,
 .groom-card{
     position: absolute;
@@ -354,9 +374,9 @@ body{
     background:
         radial-gradient(
             circle at center,
-            #6f95bc 0%,
-            #496682 45%,
-            #334b63 100%
+            rgba(111,149,188,.8) 0%,
+            rgba(73,102,130,.8) 45%,
+            rgba(51,75,99,.8) 100%
         );
 }
 
@@ -422,17 +442,47 @@ body{
 
     border-radius:36px;
 
-    border:1px solid rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.35);
 
     background:
-        rgba(255,255,255,.08);
+        radial-gradient(
+            circle at center,
+            rgba(255,255,255,.35) 0%,
+            rgba(255,255,255,.22) 45%,
+            rgba(255,255,255,.15) 100%
+        );
 
-    backdrop-filter:blur(20px);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
 
     box-shadow:
-        0 20px 60px rgba(0,0,0,.25);
+        0 20px 60px rgba(0,0,0,.25),
+        inset 0 1px 1px rgba(255,255,255,.5);
 }
 
+/* =========================
+   SHINE EFFECT
+========================= */
+
+.event-frame::before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    border-radius:inherit;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.35),
+            transparent 35%,
+            transparent 65%,
+            rgba(255,255,255,.08)
+        );
+
+    pointer-events:none;
+}
 /* =========================
    LABEL
 ========================= */
@@ -645,14 +695,12 @@ body{
         0 4px 12px rgba(0,0,0,.25);
 }
 
-.couple{
-    transform: translateX(4px) translateY(-130px) scale(0.18);
-}
+
 </style>
 </head>
 <body>
 <audio
-    id="bgMusic"
+    id="bgMusic####"
     loop
 >
     <source
@@ -921,7 +969,7 @@ tl.to(".bg", {
 }, 0);
 
 tl.to(".couple", {
-    scale:1.1,
+    scale:1.34,
     x:() => -window.innerWidth * 0.18,
     y:70,
     ease:"none"
@@ -963,7 +1011,7 @@ tl.to(".scene-text-groom",
 1.09);
 
 tl.to(".couple", {
-    x:105,
+    x:95,
 }, 0.6);
 
 tl.to(".bg", {
@@ -973,8 +1021,8 @@ tl.to(".bg", {
 }, 1);
 
 tl.to(".couple", {
-    scale:0.4,
-    x:5,
+    scale:0.6,
+    x:8,
     y:-120,
     ease:"none"
 }, 1);
@@ -1063,72 +1111,200 @@ document
 
 </script>
 <script>
-    gsap.fromTo(
-        ".love-story-badge",
-        {
-            opacity: 0
-        },
-        {
-            opacity: 1,
-            duration: 1,
-            scrollTrigger: {
-                trigger: ".love-story-badge",
-                start: "top 85%",
-                toggleActions: "play reverse play reverse"
-            }
-        }
-    );
-    gsap.fromTo(
-        ".love-story-title",
-        {
-            opacity: 0
-        },
-        {
-            opacity: 1,
-            duration: 1,
-            scrollTrigger: {
-                trigger: ".love-story-title",
-                start: "top 85%",
-                toggleActions: "play reverse play reverse"
-            }
-        }
-    );
-    gsap.fromTo(
-        ".love-story-divider",
-        {
-            opacity: 0
-        },
-        {
-            opacity: 1,
-            duration: 1,
-            scrollTrigger: {
-                trigger: ".love-story-divider",
-                start: "top 85%",
-                toggleActions: "play reverse play reverse"
-            }
-        }
-    );
-    gsap.utils.toArray(".story-card p").forEach((p) => {
+    gsap.registerPlugin(ScrollTrigger);
 
-        gsap.fromTo(
-            p,
-            {
-                opacity: 0,
-                filter: "blur(8px)",
-            },
-            {
-                opacity: 1,
-                filter: "blur(0px)",
-                duration: 1,
-                scrollTrigger: {
-                    trigger: p,
-                    start: "top 85%",
-                    toggleActions: "play reverse play reverse"
+    function animateOnScroll(selector, options = {}) {
+        const {
+            from = {},
+            to = {},
+            start = "top 85%",
+            toggleActions = "play reverse play reverse"
+        } = options;
+
+        gsap.utils.toArray(selector).forEach((element) => {
+            gsap.fromTo(
+                element,
+                from,
+                {
+                    duration: 1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: element,
+                        start,
+                        toggleActions
+                    },
+                    ...to
                 }
-            }
-        );
+            );
+        });
+    }
 
-    });
+    // =====================
+    // PRESET ANIMATIONS
+    // =====================
+
+    function fadeIn(selector) {
+        animateOnScroll(selector, {
+            from: { opacity: 0 },
+            to: { opacity: 1 }
+        });
+    }
+
+    function blurIn(selector) {
+        animateOnScroll(selector, {
+            from: {
+                opacity: 0,
+                filter: "blur(8px)"
+            },
+            to: {
+                opacity: 1,
+                filter: "blur(0px)"
+            }
+        });
+    }
+
+    function slideUp(selector) {
+        animateOnScroll(selector, {
+            from: {
+                opacity: 0,
+                y: 80
+            },
+            to: {
+                opacity: 1,
+                y: 0
+            }
+        });
+    }
+
+    function slideDown(selector) {
+        animateOnScroll(selector, {
+            from: {
+                opacity: 0,
+                y: -80
+            },
+            to: {
+                opacity: 1,
+                y: 0
+            }
+        });
+    }
+
+    function slideLeft(selector) {
+        animateOnScroll(selector, {
+            from: {
+                opacity: 0,
+                x: 80
+            },
+            to: {
+                opacity: 1,
+                x: 0
+            }
+        });
+    }
+
+    function slideRight(selector) {
+        animateOnScroll(selector, {
+            from: {
+                opacity: 0,
+                x: -80
+            },
+            to: {
+                opacity: 1,
+                x: 0
+            }
+        });
+    }
+
+    function zoomIn(selector) {
+        animateOnScroll(selector, {
+            from: {
+                opacity: 0,
+                scale: 0.5
+            },
+            to: {
+                opacity: 1,
+                scale: 1
+            }
+        });
+    }
+
+    function flipY(selector) {
+        animateOnScroll(selector, {
+            from: {
+                opacity: 0,
+                rotationY: -180,
+                transformPerspective: 1000
+            },
+            to: {
+                opacity: 1,
+                rotationY: 0
+            }
+        });
+    }
+
+    function flipX(selector) {
+        animateOnScroll(selector, {
+            from: {
+                opacity: 0,
+                rotationX: 90,
+                transformPerspective: 1000
+            },
+            to: {
+                opacity: 1,
+                rotationX: 0,
+                ease: "back.out(1.7)"
+            }
+        });
+    }
+
+    function rotateIn(selector) {
+        animateOnScroll(selector, {
+            from: {
+                opacity: 0,
+                rotation: -180,
+                scale: 0.5
+            },
+            to: {
+                opacity: 1,
+                rotation: 0,
+                scale: 1
+            }
+        });
+    }
+
+    function bounceIn(selector) {
+        animateOnScroll(selector, {
+            from: {
+                opacity: 0,
+                scale: 0.3
+            },
+            to: {
+                opacity: 1,
+                scale: 1,
+                ease: "back.out(2)"
+            }
+        });
+    }
+
+    // =====================
+    // USAGE
+    // =====================
+
+    fadeIn(".love-story-badge");
+    slideRight(".love-left");
+    slideLeft(".story-right");
+    fadeIn(".love-story-divider");
+
+    blurIn(".story-card p");
+
+    flipY(".story-card");
+
+    // contoh lain:
+    // slideUp(".gallery-item");
+    // slideLeft(".timeline-card");
+    // zoomIn(".hero-image");
+    // bounceIn(".btn-rsvp");
+
 </script>
 </body>
 </html>
